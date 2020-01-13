@@ -22,11 +22,6 @@ server.get('/api/users', (req, res) => {
 server.get('/api/users/:id', (req, res) => {
     const userId = req.params.id;
 
-    if(!userId){
-        res.status(500).json({errorMessage: "No user specified. Select a user and try again."})
-        return null
-    }
-
     db.findById(userId)
         .then(user => {
             if(!user){
@@ -58,11 +53,6 @@ server.put('/api/users/:id', (req, res) => {
     const userId = req.params.id;
     const userData = req.body;
 
-    if(!userId){
-        res.status(500).json({errorMessage: "No user specified. Select a user and try again."})
-        return null
-    }
-
     if(!userData.name || !userData.bio) {
         res.status(400).json({errorMessage: 'Please provide name and bio for the user.'});
         return null
@@ -81,11 +71,6 @@ server.put('/api/users/:id', (req, res) => {
 
 server.delete('/api/users/:id', (req, res) => {
     const userId = req.params.id;
-
-    if(!userId){
-        res.status(500).json({errorMessage: "No user specified. Select a user and try again."})
-        return null
-    }
 
     db.remove(userId)
         .then(user => {
